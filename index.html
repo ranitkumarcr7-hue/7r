@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thoughts to Animation</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  textarea { width: 100%; height: 150px; font-size: 1.1em; padding: 10px; }
+  button { margin-top: 10px; padding: 10px 20px; font-size: 1.1em; }
+  #animationArea { margin-top: 30px; width: 100%; height: 300px; background: black; position: relative; overflow: hidden; border-radius: 8px; }
+  .animatedText {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: lime;
+    white-space: nowrap;
+    animation: floatUp 5s linear forwards;
+  }
+  @keyframes floatUp {
+    from { bottom: -40px; opacity: 1; }
+    to { bottom: 100%; opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Write Your Thoughts and Animate Them</h1>
+<textarea id="thoughtInput" placeholder="Write your thoughts here..."></textarea>
+<br />
+<button onclick="animateThoughts()">Create Animation</button>
+
+<div id="animationArea"></div>
+
+<script>
+function animateThoughts() {
+  const text = document.getElementById('thoughtInput').value.trim();
+  if (!text) return alert('Please write something to animate!');
+
+  const animationArea = document.getElementById('animationArea');
+  const words = text.split(' ');
+
+  animationArea.innerHTML = ''; // Clear previous animations
+
+  words.forEach((word, index) => {
+    const span = document.createElement('span');
+    span.textContent = word;
+    span.className = 'animatedText';
+    span.style.left = Math.random() * 90 + '%';
+    span.style.bottom = '-40px';
+    span.style.fontSize = (16 + Math.random() * 20) + 'px';
+    span.style.animationDelay = (index * 0.3) + 's';
+    animationArea.appendChild(span);
+  });
+}
+</script>
+
+</body>
+</html>
